@@ -7,6 +7,7 @@ from app.repository.user_repository import UserRepository
 from app.schemas.auth import  CreateUserSchema, GetUserSchema, UserSignIn
 
 from app.repository.unit_of_work import UnitOfWork
+from app.services.email_service import send_email
 from app.services.user_service import UserService
 
 from app.core.config import settings
@@ -28,6 +29,7 @@ async def sign_up(pyload: CreateUserSchema):
         try:
             user_service.place_user(pyload)
             unit_of_work.commit()
+            send_email(pyload.email, pyload.first_name, 'http://example.com')
             return JSONResponse(content={"message": f"Dear {pyload.username}, your profile is created successfully!!!"},
                                 status_code=201)
         except UserAlreadyExistsError:

@@ -10,7 +10,7 @@ class User:
         self._username = username
         self._email = email
         self._created = created
-        self.updated = updated
+        self._updated = updated
         self._password = password
         self.user_ = user_
 
@@ -39,6 +39,10 @@ class User:
         return self._created or (self.user_.created if self.user_ else None)
 
     @property
+    def updated(self):
+        return self._updated or (self.user_.updated if self.user_ else None)
+
+    @property
     def password(self):
         return self._password or (self.user_.password if self.user_ else None)
 
@@ -49,6 +53,6 @@ class User:
             "last_name": self.last_name,
             "username": self.username,
             "email": self.email,
-            "created": self.created,
-            "updated": self.updated
+            "created": str(self.created),
+            "updated": str(self.updated)
         }

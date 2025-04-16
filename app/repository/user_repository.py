@@ -18,7 +18,7 @@ class UserRepository:
     def get(self, id_):
         user = self._get(id_)
         if user is not None:
-            return User(**user.dict())
+            return User(user_=user).dict()
 
     def get_by_email(self, email):
         return (self.session.query(UserModel)
@@ -33,7 +33,6 @@ class UserRepository:
 
     def list(self, limit=None, **filters):
         query = self.session.query(UserModel)
-
         records = query.filter_by(**filters).limit(limit).all()
         return [User(**record.dict()) for record in records]
 
