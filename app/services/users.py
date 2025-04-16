@@ -2,7 +2,7 @@ from datetime import datetime
 
 class User:
     def __init__(self, id=None, first_name=None, last_name=None,
-                 username=None, email=None, created=None, password=None,
+                 username=None, email=None, created=None, updated=None,  password=None,
                  user_=None):
         self._id = id
         self._first_name = first_name
@@ -10,6 +10,7 @@ class User:
         self._username = username
         self._email = email
         self._created = created
+        self.updated = updated
         self._password = password
         self.user_ = user_
 
@@ -49,5 +50,5 @@ class User:
             "username": self.username,
             "email": self.email,
             "created": self.created,
-            "password": self.password
+            "updated": self.updated
         }

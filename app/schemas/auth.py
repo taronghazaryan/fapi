@@ -28,3 +28,10 @@ class GetUsersSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
+class UserSignIn(BaseModel):
+    username: str = Field(min_length=8, max_length=16)
+    password: str = Field(min_length=8, max_length=32)
+
+    class Config:
+        extra = Extra.forbid
+

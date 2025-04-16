@@ -1,3 +1,5 @@
+from starlette.responses import JSONResponse
+
 from app.exeptions import UserNotFoundError, UserAlreadyExistsError, PasswordMismatch
 from app.repository.models import UserModel
 from app.core.security import hash_password, verify_password
@@ -33,6 +35,13 @@ class UserService:
         self.user_repository.add(user)
         return user
 
+    def authenticate(self, username: str, password: str):
+
+        user = self.user_repository.get_by_username(username)
+        if user and verify_password(password, user.password):
+            return user
+        # return JSONResponse({"message": "Invalid username or password"}, status_code=404)
+        return None
 
     def get_user(self, user_id):
         user = self.user_repository.get(user_id)

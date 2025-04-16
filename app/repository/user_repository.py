@@ -13,7 +13,6 @@ class UserRepository:
     def _get(self, id_):
         return (self.session.query(UserModel)
                 .filter(UserModel.id == str(id_))
-                .filter_by(**filters)
                 .first())
 
     def get(self, id_):
