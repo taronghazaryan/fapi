@@ -38,6 +38,7 @@ python-dotenv==1.1.0
 python-jose==3.4.0
 python-multipart==0.0.20
 PyYAML==6.0.2
+redis==5.2.1
 rich==14.0.0
 rich-toolkit==0.14.1
 rsa==4.9
@@ -54,5 +55,3 @@ uvicorn==0.34.1
 uvloop==0.21.0
 watchfiles==1.0.5
 websockets==15.0.1
-
-redis~=5.2.1

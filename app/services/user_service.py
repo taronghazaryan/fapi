@@ -40,7 +40,6 @@ class UserService:
         user = self.user_repository.get_by_username(username)
         if user and verify_password(password, user.password):
             return user
-        # return JSONResponse({"message": "Invalid username or password"}, status_code=404)
         return None
 
     def get_user(self, user_id):
