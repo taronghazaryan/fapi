@@ -19,6 +19,8 @@ class UserRepository:
         user = self._get(id_)
         if user is not None:
             return User(user_=user).dict()
+        else:
+            return None
 
     def get_by_email(self, email):
         return (self.session.query(UserModel)
@@ -36,18 +38,12 @@ class UserRepository:
         records = query.filter_by(**filters).limit(limit).all()
         return [User(**record.dict()) for record in records]
 
-    def update(self, id_, **payload):
+    def update(self, id_, payload: dict):
         record = self._get(id_)
-        if 'data' in payload:
-            for data in record.datas:
-                self.session.delete(data)
-            record.items = [
-                UserModel(**data) for data in payload.pop('datas')
-            ]
-
-        for key, value in payload.datas():
+        for key, value in payload.items():
             setattr(record, key, value)
-        return User(**record.dict())
+
+        return User(user_=record)
 
     def delete(self, id_):
         self.session.delete(self._get(id_))

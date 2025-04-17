@@ -33,5 +33,5 @@ class UserModel(Base):
             'last_name': self.last_name,
             'password': self.password,
             "created": self.created,
-            "updated": self.updated
+            "updated": self.updated,
         }

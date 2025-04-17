@@ -1,33 +1,40 @@
-import os
-
-from pydantic import ConfigDict, BaseModel
+import redis
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 class Settings(BaseSettings):
 
-    COMPANY_NAME: str = os.getenv('COMPANY_NAME')
+    COMPANY_NAME: str
 
-    REDIS_HOST: str = os.getenv('REDIS_HOST')
-    REDIS_PORT: int = os.getenv('REDIS_PORT')
-    REDIS_DB: int = os.getenv('REDIS_DB')
+    SECRET_KEY: str
 
-    JWT_SECRET_KEY: str = os.getenv('JWT_SECRET_KEY')
-    JWT_ALGORITHM: str = os.getenv('JWT_ALGORITHM')
-    ACCESS_TOKEN_EXPIRE_MINUTES: int = os.getenv('ACCESS_TOKEN_EXPIRE_MINUTES')
-    REFRESH_TOKEN_EXPIRE_DAYS: int = os.getenv('REFRESH_TOKEN_EXPIRE_DAYS')
+    REDIS_HOST: str
+    REDIS_PORT: int
+    REDIS_DB: int
+
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+    REFRESH_TOKEN_EXPIRE_DAYS: int
     # REDIS_PASSWORD
 
-    SUPER_EMAIL: str = os.getenv('SUPER_EMAIL')
-    SUPER_EMAIL_PASSWORD: str = os.getenv('SUPER_EMAIL_PASSWORD')
+    SUPER_EMAIL: str
+    SUPER_EMAIL_PASSWORD: str
 
-    SMTP_SERVER: str = os.getenv('SMTP_SERVER')
-    SMTP_PORT: int = os.getenv('SMTP_PORT')
+    SMTP_SERVER: str
+    SMTP_PORT: int
+
+    EXCLUDED_PATHS: str
+
+    model_config = SettingsConfigDict(env_file='.env')
 
 
 
 settings = Settings()
+
+redis_instance = redis.StrictRedis(
+            host=settings.REDIS_HOST,
+            port=settings.REDIS_PORT,
+            db=settings.REDIS_DB,
+            decode_responses=True
+        )

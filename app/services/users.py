@@ -2,16 +2,17 @@ from datetime import datetime
 
 class User:
     def __init__(self, id=None, first_name=None, last_name=None,
-                 username=None, email=None, created=None, updated=None,  password=None,
-                 user_=None):
+                 username=None, email=None, created=None, updated=None,
+                 user_=None, verified=None, disabled=None):
         self._id = id
         self._first_name = first_name
         self._last_name = last_name
         self._username = username
         self._email = email
+        self._disabled = disabled
+        self._verified = verified
         self._created = created
         self._updated = updated
-        self._password = password
         self.user_ = user_
 
     @property
@@ -43,16 +44,20 @@ class User:
         return self._updated or (self.user_.updated if self.user_ else None)
 
     @property
-    def password(self):
-        return self._password or (self.user_.password if self.user_ else None)
+    def verified(self):
+        return self._verified or (self.user_.verified if self.user_ else None)
+
+    @property
+    def disabled(self):
+        return self._disabled or (self.user_.disabled if self.user_ else None)
+
 
     def dict(self):
         return {
-            "id": self.id,
             "first_name": self.first_name,
             "last_name": self.last_name,
             "username": self.username,
             "email": self.email,
-            "created": str(self.created),
-            "updated": str(self.updated)
+            "verified": self.verified,
+            "disabled": self.disabled,
         }

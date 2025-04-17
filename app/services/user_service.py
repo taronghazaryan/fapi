@@ -1,5 +1,3 @@
-from starlette.responses import JSONResponse
-
 from app.exeptions import UserNotFoundError, UserAlreadyExistsError, PasswordMismatch
 from app.repository.models import UserModel
 from app.core.security import hash_password, verify_password
@@ -36,7 +34,6 @@ class UserService:
         return user
 
     def authenticate(self, username: str, password: str):
-
         user = self.user_repository.get_by_username(username)
         if user and verify_password(password, user.password):
             return user
@@ -46,6 +43,12 @@ class UserService:
         user = self.user_repository.get(user_id)
         if user is None:
             raise UserNotFoundError(f"User with id:{user_id} not found.")
+        return user
+
+    def get_user_by_email(self, email):
+        user = self.user_repository.get_by_email(email)
+        if user is None:
+            raise UserNotFoundError(f"User with email:{email} not found.")
         return user
 
     def update_user(self, user_id, data: dict):

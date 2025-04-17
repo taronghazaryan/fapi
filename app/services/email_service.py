@@ -11,10 +11,8 @@ def send_email(to_email, first_name, url):
     subject = settings.COMPANY_NAME
     message = f"""Email Verification
             Dear { first_name },
-            Thank you for registering on our platform. Please click the button below to verify your email address:
-                        
+            Thank you for registering on our platform. Please click the button below to verify your email address:       
             { url }
-
             """
     try:
         with smtplib.SMTP(smtp_server, port) as server:

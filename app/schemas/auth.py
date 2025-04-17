@@ -1,7 +1,5 @@
 from pydantic import BaseModel, Field, EmailStr, Extra
-
 from typing import List
-from uuid import UUID
 
 
 class CreateUserSchema(BaseModel):
