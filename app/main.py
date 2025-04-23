@@ -6,6 +6,8 @@ from starlette.requests import Request
 
 from app.api.routes import users
 from app.api.routes import auth
+from app.api.routes import chat
+
 from app.core.config import settings
 
 from app.middleware.jwt_middleware import JWTAuthMiddleware
@@ -36,6 +38,7 @@ app.add_middleware(
 v1 = APIRouter(prefix='/v1', tags=['v1'])
 v1.include_router(auth.router)
 v1.include_router(users.router)
+v1.include_router(chat.router)
 
 app.include_router(v1)
 

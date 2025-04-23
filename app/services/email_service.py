@@ -1,6 +1,6 @@
 import smtplib
-from app.core.config import settings
 
+from app.core.config import settings
 
 
 def send_email(to_email, first_name, url):
